@@ -1,6 +1,6 @@
 <?php
 
- /**
+/**
  * Get Air Pollution information
  * 
  * 
@@ -9,8 +9,9 @@
 
 namespace AirPollution;
 
-class AirPollution {
-    private $API;
+class AirPollution
+{
+    protected $API;
     protected $URI = 'http://api.waqi.info/feed/';
     public $result = array();
 
@@ -23,16 +24,16 @@ class AirPollution {
      */
     public function __construct($API)
     {
-        $this->$API = $API;
+        $this->API = $API;
     }
 
     /**
-    * Get Air Pollution data by city
-    *
-    * @param string $cityName City name
-    *
-    * @return mixed
-    */
+     * Get Air Pollution data by city
+     *
+     * @param string $cityName City name
+     *
+     * @return mixed
+     */
     public function searchByCity($cityName)
     {
         $data['city'] = $cityName;
@@ -47,12 +48,12 @@ class AirPollution {
      * 
      * @return json
      */
-    private function _getData($data)
+    private function _getData($data = [])
     {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $this->URI . $data['city'] . '/?token=' . $this->API);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); 
-        $output = curl_exec($curl); 
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($curl);
         curl_close($curl);
         return $output;
     }
