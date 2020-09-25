@@ -379,7 +379,7 @@ Array
 ```
 
 #### API-KEY
-You can get the API-KEY from (https://aqicn.org/)[https://aqicn.org/api/]. Register using your email.
+You can get the API-KEY from [https://aqicn.org/](https://aqicn.org/api/). Register using your email.
 
 #### Contributing
 Yes, you can help optimize this library by contributing. All contributions are very meaningful to this library.
