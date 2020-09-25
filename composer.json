@@ -1,0 +1,19 @@
+{
+    "name": "sahmura/air-pollution",
+    "description": "A simple library to get air pollution information in various countries.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Khoerul Umam",
+            "email": "id.khoerulumam@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "AirPollution\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
