@@ -13,7 +13,9 @@ class AirPollution
 {
     protected $API;
     protected $URI = 'http://api.waqi.info/feed/';
-    public $result = array();
+    public $resultArray;
+    public $resultJson;
+    public $cityDetail;
 
     /**
      * Init data
@@ -37,8 +39,9 @@ class AirPollution
     public function searchByCity($cityName)
     {
         $data['city'] = $cityName;
-        $result = json_decode($this->_getData($data), true);
-        $this->result = $result;
+        $getData = $this->_getData($data);
+        $this->resultJson = $getData;
+        $this->resultArray = json_decode($getData, true);
     }
 
     /**
@@ -51,7 +54,11 @@ class AirPollution
     private function _getData($data = [])
     {
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->URI . $data['city'] . '/?token=' . $this->API);
+        curl_setopt(
+            $curl,
+            CURLOPT_URL,
+            $this->URI . $data['city'] . '/?token=' . $this->API
+        );
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $output = curl_exec($curl);
         curl_close($curl);
@@ -61,10 +68,83 @@ class AirPollution
     /**
      * Get result
      * 
+     * @param $type Get result type. Default is JSON
+     * 
      * @return array
      */
-    public function getResult()
+    public function getResult($type = 'json')
     {
-        print_r($this->result);
+        if ($type == 'array') {
+            return $this->resultArray;
+        }
+        return $this->resultJson;
+    }
+
+    /**
+     * Get City
+     * 
+     * @param boolean $type     get result data type. Default is JSON
+     * @param boolean $readable get readable result
+     * 
+     * @return mixed
+     */
+    public function getCity($type = 'json', $readable = false)
+    {
+        $data = $this->resultArray['data']['city'];
+        if ($type == 'array') {
+            return $data;
+        }
+        return json_encode($data);
+    }
+
+    /**
+     * Get dominant pollution
+     * 
+     * @return string
+     */
+    public function getDominant()
+    {
+        return $this->resultArray['data']['dominentpol'];
+    }
+
+    /**
+     * Get air quality index
+     * 
+     * @param boolean $isIndividual get data individually
+     * 
+     * @return array
+     */
+    public function getAqi($isIndividual = false)
+    {
+        if ($isIndividual) {
+            return $this->resultArray['data']['iaqi'];
+        }
+        return $this->resultArray['data']['aqi'];
+    }
+
+    /**
+     * Get Time
+     * 
+     * @return array
+     */
+    public function getTime()
+    {
+        return $this->resultArray['data']['time'];
+    }
+
+    /**
+     * Get forecast
+     * 
+     * @param string $pollutanType get pollutan type
+     * 
+     * @return array
+     */
+    public function getForecast($pollutanType = null)
+    {
+        if ($pollutanType == null) {
+            return $this->resultArray['data']['forecast']['daily'];
+        } else {
+            return $this->resultArray['data']['forecast']['daily'][$pollutanType];
+        }
     }
 }
