@@ -2,8 +2,7 @@
 
 /**
  * Get Air Pollution information
- * 
- * 
+ *  
  * @author Khoerul Umam <id.khoerulumam@gmail.com>
  */
 
@@ -68,13 +67,13 @@ class AirPollution
     /**
      * Get result
      * 
-     * @param $type Get result type. Default is JSON
+     * @param $format Get result format. Default is JSON
      * 
      * @return array
      */
-    public function getResult($type = 'json')
+    public function getResult($format = 'json')
     {
-        if ($type == 'array') {
+        if ($format == 'array') {
             return $this->resultArray;
         }
         return $this->resultJson;
@@ -83,15 +82,15 @@ class AirPollution
     /**
      * Get City
      * 
-     * @param boolean $type     get result data type. Default is JSON
+     * @param boolean $format     get result data format. Default is JSON
      * @param boolean $readable get readable result
      * 
      * @return mixed
      */
-    public function getCity($type = 'json', $readable = false)
+    public function getCity($format = 'json', $readable = false)
     {
         $data = $this->resultArray['data']['city'];
-        if ($type == 'array') {
+        if ($format == 'array') {
             return $data;
         }
         return json_encode($data);
