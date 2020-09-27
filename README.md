@@ -11,7 +11,7 @@ To install this library, make sure you have composer installed.
 Run the following command
 
 ```
-composer require sahmura/air-pollution ^1.0
+composer require khumam/air-pollution ^1.0
 ``` 
 
 Then call the data with the code below
